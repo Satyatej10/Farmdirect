@@ -34,7 +34,7 @@ const Farmer = () => {
     formData.append("grams", grams);
 
     try {
-      await axios.post("http://localhost:4000/uploadimage", formData, {
+      await axios.post("https://farmdirectserver.vercel.app/uploadimage", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       
