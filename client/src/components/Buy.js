@@ -58,10 +58,10 @@ const Buy = () => {
                 <p className='mt-6 text-lg lg:text-xl font-semibold'>Total price</p>
                 <button className='bg-[#333333] w-full lg:w-80 h-12 lg:h-14 mt-5 rounded-lg text-white text-sm lg:text-base font-semibold hover:bg-black transition-transform transform hover:scale-105 shadow-md'>Rs {gram}</button>
                 
-                {/* Adjusted Buttons for Mobile and Tablet Screens */}
-                <div className='flex flex-col xs:flex-row sm:flex-row md:flex-row gap-4 lg:gap-5 mt-5'>
-                    <button className='bg-teal-600 w-full xs:w-1/2 sm:w-1/2 md:w-1/2 lg:w-80 h-12 lg:h-14 rounded-lg text-white text-sm lg:text-base font-semibold hover:bg-teal-700 transition-transform transform hover:scale-105 shadow-md' onClick={handleCartClick}>Add to Cart</button>
-                    <button className='bg-teal-600 w-full xs:w-1/2 sm:w-1/2 md:w-1/2 lg:w-80 h-12 lg:h-14 rounded-lg text-white text-sm lg:text-base font-semibold hover:bg-teal-700 transition-transform transform hover:scale-105 shadow-md' onClick={handleBuyNowClick}>Buy it Now</button>
+            
+                <div className='flex flex-row xs:flex-row sm:flex-row md:flex-row gap-4 lg:gap-5 mt-5'>
+                    <button className='bg-teal-800 w-full xs:w-1/2 sm:w-1/2 md:w-1/2 lg:w-80 h-12 lg:h-14 rounded-lg text-white text-sm lg:text-base font-semibold hover:bg-teal-700 transition-transform transform hover:scale-105 shadow-md' onClick={handleCartClick}>Add to Cart</button>
+                    <button className='bg-teal-800 w-full xs:w-1/2 sm:w-1/2 md:w-1/2 lg:w-80 h-12 lg:h-14 rounded-lg text-white text-sm lg:text-base font-semibold hover:bg-teal-700 transition-transform transform hover:scale-105 shadow-md' onClick={handleBuyNowClick}>Buy it Now</button>
                 </div>
 
                 <p className='mt-6 text-sm lg:text-base text-gray-600'>{productdesc}</p>
