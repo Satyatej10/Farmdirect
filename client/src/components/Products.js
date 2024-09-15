@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import hero from '../images/hero3.png'
-import { PiFarm } from "react-icons/pi";
+import Middle from '../components/Middle'
+import Features from './Features'
+import Footer from './Footer';
+
 const Products = () => {
   const [products] = useState([
     { name: 'Apple', image: require('../images/apple.jpg'), price: "40", quantity: "500gms", desc: "Indulge in the sweet, refreshing taste of our Crisp & Juicy Apples! Handpicked from the finest orchards, these apples are perfect for a healthy snack or a delightful addition to your favorite recipes. With their vibrant red skin, firm texture, and juicy flesh, our apples provide the perfect balance of sweetness and tartness." },
@@ -33,7 +36,7 @@ const Products = () => {
 
   return (
     <>
-      <img src={hero} alt="" className='h-max w-screen' /><br />
+      <Link to='/shop'><img src={hero} alt="" className='h-max w-screen' /><br /></Link>
       <h1 className=' text-center text-4xl font-semibold'>Discover or premium range and enojoy our</h1>
       <h1 className=' text-center text-4xl font-semibold'>true taste</h1>
       <div className="flex flex-wrap justify-center lg:gap-5 sm:gap-5 md:gap-5 gap-2 pt-4 md:mr-5 sm:ml-8">
@@ -82,15 +85,8 @@ const Products = () => {
 
 
       </div>
-      <center>
-        <div className='bg-teal-800 w-40 h-40 p-6 rounded-full'>
-          <PiFarm className='text-white w-28 h-28' /></div></center><br />
-      <p className='text-lg md:text-xl font-bold text-center'>Pure and Clean Ingredients</p>
-      <p className='text-sm md:text-base text-center font-serif'>
-        Enjoy the peace of mind that comes from consuming food free from harmful chemicals, pesticides, and artificial additives.
-      </p>
-      <br />
-
+     
+      <Features/>
       <div className='bg-amber-500 lg:p-20 md:p-16 sm:p-12 p-8 pt-16 pb-16'>
         <p className='text-2xl md:text-3xl lg:text-4xl font-bold text-center text-white'>
           Advantages Of Organic Farming
@@ -111,6 +107,7 @@ const Products = () => {
         </p>
       </div>
       <br />
+      <Middle/><br/>
 
       <p className='text-center font-bold text-teal-800 relative lg:text-9xl md:text-8xl sd:text-7xl text-6xl'>
         100% Pure
@@ -121,7 +118,7 @@ const Products = () => {
   text-xl sm:text-2xl md:text-4xl lg:text-4xl xl:text-6xl'>
         Our Products Are Free From Chemicals And Additives
       </p>
-
+       <Footer/>
     </>
   );
 };
