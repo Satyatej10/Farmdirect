@@ -7,7 +7,7 @@ const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const cloudinary = require('cloudinary').v2;
 const Images = require('./model');
 const User=require('./model1');
-const bcrypt=require('bcrypt');
+const bcrypt=require('bcryptjs');
 const jwt=require('jsonwebtoken')
 app.use(cors());
 app.use(express.json());
