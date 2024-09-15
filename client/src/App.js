@@ -9,6 +9,9 @@ import First from './components/First';
 import Second from './components/Second';
 import Farmer from './components/Farmer'; 
 import Shop from './components/Shop';
+import Signup from './components/Signup';
+import Login from './components/Login';
+import Myprofile from './components/Myprofile';
 
 const App = () => {
   return (
@@ -23,6 +26,9 @@ const App = () => {
         <Route path="/" element={<First />} />
         <Route path="/farmer" element={<Farmer />} /> 
         <Route path="/shop" element={<Shop />} /> 
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Myprofile />} />
       </Routes>
     </BrowserRouter>
   );
@@ -30,12 +36,12 @@ const App = () => {
 
 const ConditionalNavbar = () => {
   const location = useLocation();
-  const showNavbar = location.pathname !== '/' && location.pathname !== '/second' && location.pathname !== '/farmer';
+  const showNavbar = location.pathname !== '/' && location.pathname !== '/second' && location.pathname !== '/farmer' && location.pathname !== '/login' && location.pathname !== '/signup';
 
   return (
-    <div>
+    <>
       {showNavbar && <Navbar />}
-    </div>
+    </>
   );
 };
 

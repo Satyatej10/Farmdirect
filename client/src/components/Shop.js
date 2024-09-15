@@ -14,16 +14,17 @@ const Shop = () => {
 
   const getImages = async () => {
     try {
-      const result = await axios.get("https://farmdirectserver.vercel.app/getimage");
+      const result = await axios.get("https://farmdirectserver-1z7a0piuf-bhargavks-projects.vercel.app/getimage");
       setImages(result.data.data || []);
     } catch (error) {
       console.error("Error fetching images:", error);
     }
   };
 
-  const handleclick = (imagePath, productname, productprice) => {
-    navigate('/buy', { state: { imagePath, productname, productprice } });
+  const handleclick = (imagePath, productname, productprice, grams, username) => {
+    navigate('/buy', { state: { imagePath, productname, productprice, grams, username } });
   };
+  
 
   // Filter images based on searchTerm
   const filteredImages = images.filter(data =>
@@ -69,7 +70,7 @@ const Shop = () => {
                   src={data.image}
                   alt={data.name}
                   className="w-full h-auto object-cover mb-4 rounded-md"
-                  onClick={() => handleclick(data.image, data.name, data.price, data.grams)}
+                  onClick={() => handleclick(data.image, data.name, data.price, data.grams, data.userName)}
                 />
 
                 <div className="absolute bottom-[90px] right-3 lg:bottom-24 lg:right-4 bg-white lg:p-1 p-[0.5px] rounded-full shadow-lg">
@@ -81,6 +82,7 @@ const Shop = () => {
                   <p className="text-lg text-center text-gray-500">Rs.{data.price}/</p>
                   <p className="text-lg text-gray-500 text-center">{data.grams}grm</p>
                 </div>
+              
               </div>
             ) : null
           ))

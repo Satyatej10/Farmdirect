@@ -5,7 +5,8 @@ import Payment from './Payment';
 
 const Buy = () => {
     const location = useLocation();
-    const { imagePath, productname, productprice, productdesc } = location.state || {};
+    const { imagePath, productname, productprice, username, productdesc } = location.state || {};
+
 
     const [gram, setGram] = useState(productprice);
     const [isPaymentPopupVisible, setPaymentPopupVisible] = useState(false);
@@ -65,6 +66,11 @@ const Buy = () => {
                 </div>
 
                 <p className='mt-6 text-sm lg:text-base text-gray-600'>{productdesc}</p>
+                <p className='mt-6 text-sm lg:text-base text-gray-600'>
+  <span className="font-semibold">Farmer:</span> {username} - A trusted farmer providing high-quality {productname}. Available in {gram}gm at a competitive price of Rs {gram === productprice ? productprice : productprice * 2}. 
+  Known for sustainable farming practices, {username} ensures fresh and organic products delivered directly from the farm to your doorstep.
+</p>
+
             </div>
 
             {isPaymentPopupVisible && (

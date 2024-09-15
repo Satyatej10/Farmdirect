@@ -5,7 +5,8 @@ const imageSchema = new mongoose.Schema({
     image: String,
     name: String,
     price: Number,
-    grams: String
+    grams: String,
+    userName:String
 });
 
 module.exports = mongoose.model('Image', imageSchema);

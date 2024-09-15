@@ -2,6 +2,9 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { AiOutlineUpload, AiOutlineForm, AiOutlineDollarCircle } from 'react-icons/ai';
 import { FaBox, FaCheckCircle } from 'react-icons/fa';
+import Modal from './Modal';  // Import the Modal component
+import Profile from './Myprofile';  // Import the Profile component
+import { FaUser } from "react-icons/fa";
 
 const Farmer = () => {
   const [image, setImage] = useState(null);
@@ -12,6 +15,9 @@ const Farmer = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [cropDetails, setCropDetails] = useState({});
   const fileInputRef = useRef(null);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [userName,setUserName]=useState('')
+  const toggleProfile = () => setIsProfileOpen(prevState => !prevState);
 
   const onInputChange = (e) => {
     const file = e.target.files[0];
@@ -24,6 +30,7 @@ const Farmer = () => {
   const handleNameChange = (e) => setName(e.target.value);
   const handlePriceChange = (e) => setPrice(e.target.value);
   const handleGramsChange = (e) => setGrams(e.target.value);
+  const handleuserNameChange = (e) => setUserName(e.target.value);
 
   const submitImage = async (e) => {
     e.preventDefault();
@@ -32,9 +39,11 @@ const Farmer = () => {
     formData.append("name", name);
     formData.append("price", price);
     formData.append("grams", grams);
+    formData.append("userName", userName);
+
 
     try {
-      await axios.post("https://farmdirectserver.vercel.app/uploadimage", formData, {
+      await axios.post("https://farmdirectserver-1z7a0piuf-bhargavks-projects.vercel.app/uploadimage", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       
@@ -43,6 +52,7 @@ const Farmer = () => {
         name: name,
         price: price,
         grams: grams,
+        userName:userName,
       });
       setShowPopup(true);
     } catch (error) {
@@ -59,7 +69,20 @@ const Farmer = () => {
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="text-2xl font-bold">Farmer Dashboard</div>
           <div className="space-x-4 flex">
-            <p className="hover:underline font-semibold">Profile</p>
+          <FaUser 
+              className="text-teal-900 cursor-pointer text-2xl  relative" 
+              onClick={toggleProfile} 
+            />
+            {isProfileOpen && (
+              <div 
+                className="absolute top-12 right-0 z-50"
+                style={{ width: '300px' }}
+              >
+                <Modal onClose={() => setIsProfileOpen(false)}>
+                  <Profile />
+                </Modal>
+              </div>
+            )}
             <p className="hover:underline font-semibold">Settings</p>
           </div>
         </div>
@@ -151,6 +174,23 @@ const Farmer = () => {
                 />
               </div>
             </div>
+            <div className="flex items-center mb-4">
+              <AiOutlineForm className="text-gray-600 text-2xl mr-2 mt-6" />
+              <div className="flex-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="grams">
+                  Name
+                </label>
+                <input
+                  id="userName"
+                  type="text"
+                  placeholder="Enter quantity"
+                  value={userName}
+                  onChange={handleuserNameChange}
+                  className="block w-full text-gray-700 border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                  required
+                />
+              </div>
+            </div>
             <button
               type="submit"
               className="w-full py-3 px-6 bg-teal-800 text-white font-semibold rounded-md shadow-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition duration-300"
@@ -184,6 +224,7 @@ const Farmer = () => {
               <p className="mt-2 text-gray-700"><strong>Name:</strong> {cropDetails.name}</p>
               <p className="text-gray-700"><strong>Price:</strong> {cropDetails.price} Rs</p>
               <p className="text-gray-700"><strong>Quantity:</strong> {cropDetails.grams}</p>
+              <p className="text-gray-700"><strong>Name:</strong> {cropDetails.userName}</p>
             </div>
           </div>
         </div>

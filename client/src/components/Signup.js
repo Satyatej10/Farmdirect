@@ -1,85 +1,74 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 const Signup = () => {
-  const [user, setUser] = useState('');
-  const [mail, setMail] = useState('');
-  const [pass, setPass] = useState('');
-  const navigate = useNavigate(); 
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const submithandler = (e) => {
-    e.preventDefault();
-    axios.post('http://localhost:4000/register', { name: user, email: mail, password: pass })
-    .then(res => {
+  const handleSignup = async () => {
+    const response = await fetch('https://farmdirectserver-1z7a0piuf-bhargavks-projects.vercel.app/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password }),
+    });
+    const data = await response.json();
+    if (response.status === 201) {
       navigate('/login');
-    })
-    .catch(err => console.error(err.response.data));
+    } else {
+      alert(data.message);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-teal-500 to-blue-600 flex items-center justify-center p-6">
-      <form className="bg-white shadow-md rounded-lg p-8 max-w-md w-full space-y-6" onSubmit={submithandler}>
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Create an Account</h2>
-
-        <div className="relative">
-          <input
-            type="text"
-            value={user}
-            className={`w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300 ease-in-out peer ${
-              user ? 'pt-6' : ''
-            }`}
-            onChange={(e) => setUser(e.target.value)}
-          />
-          <label
-            className={`absolute left-4 top-3 text-sm font-medium text-gray-500 transition-all duration-300 ease-in-out pointer-events-none
-              ${user ? '-top-2 text-xs text-teal-500' : 'peer-focus:-top-2 peer-focus:text-xs peer-focus:text-teal-500'}`}
-          >
-            Name
-          </label>
-        </div>
-
-        <div className="relative">
-          <input
-            type="email"
-            value={mail}
-            className={`w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300 ease-in-out peer ${
-              mail ? 'pt-6' : ''
-            }`}
-            onChange={(e) => setMail(e.target.value)}
-          />
-          <label
-            className={`absolute left-4 top-3 text-sm font-medium text-gray-500 transition-all duration-300 ease-in-out pointer-events-none
-              ${mail ? '-top-2 text-xs text-teal-500' : 'peer-focus:-top-2 peer-focus:text-xs peer-focus:text-teal-500'}`}
-          >
-            Email
-          </label>
-        </div>
-
-        <div className="relative">
-          <input
-            type="password"
-            value={pass}
-            className={`w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300 ease-in-out peer ${
-              pass ? 'pt-6' : ''
-            }`}
-            onChange={(e) => setPass(e.target.value)}
-          />
-          <label
-            className={`absolute left-4 top-3 text-sm font-medium text-gray-500 transition-all duration-300 ease-in-out pointer-events-none
-              ${pass ? '-top-2 text-xs text-teal-500' : 'peer-focus:-top-2 peer-focus:text-xs peer-focus:text-teal-500'}`}
-          >
-            Password
-          </label>
-        </div>
-
-        <button
-          type="submit"
-          className="w-full bg-teal-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-teal-700 transition duration-300 ease-in-out transform hover:scale-105"
-        >
-          Submit
-        </button>
-      </form>
+    <div className="min-h-screen flex items-center justify-center bg-[#e0d7af] px-4 py-12">
+      <div className="bg-[#e0d7af] p-8 rounded-lg shadow-lg w-full max-w-md"
+      style={{
+        boxShadow: '0 8px 16px rgba(0, 128, 128, 0.5)', 
+      }}>
+        <h2 className="text-2xl font-bold text-center text-teal-800 mb-6">Signup</h2>
+        <form autoComplete="off">
+          <div className="space-y-4">
+            <input
+              type="text"
+              name="signup-name"
+              id="unique-name-id"
+              placeholder="Name"
+              className="w-full p-3 bg-[#e0d7af] border-b-2 outline-none border-teal-800 text-teal-800 placeholder-yellow-600"
+              onChange={e => setName(e.target.value)}
+              autoComplete="new-name"
+            />
+            <input
+              type="email"
+              name="signup-email"
+              id="unique-email-id"
+              placeholder="Email"
+              className="w-full p-3 bg-[#e0d7af] border-b-2 outline-none border-teal-800 text-teal-800 placeholder-yellow-600"
+              onChange={e => setEmail(e.target.value)}
+              autoComplete="new-email"
+            />
+            <input
+              type="password"
+              name="signup-password"
+              id="unique-password-id"
+              placeholder="Password"
+              className="w-full p-3 bg-[#e0d7af] border-b-2 outline-none border-teal-800 text-teal-800 placeholder-yellow-600"
+              onChange={e => setPassword(e.target.value)}
+              autoComplete="new-password"
+            />
+            <br />
+            <button
+              onClick={handleSignup}
+              className="w-full bg-teal-800 text-white p-3 rounded-lg hover:bg-teal-700 transition duration-300"
+            >
+              Signup
+            </button>
+            <div className='flex justify-between'>
+            <p className='text-teal-800'>I have already account</p><Link to='/login'><p>Login</p></Link></div>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

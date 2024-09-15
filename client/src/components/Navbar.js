@@ -1,29 +1,23 @@
 import React, { useState } from 'react';
 import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
 import { CiSearch, CiShoppingBasket } from "react-icons/ci";
+import { FaUser } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import Modal from './Modal';  // Import the Modal component
+import Profile from './Myprofile';  // Import the Profile component
 
 const Navbar = () => {
   const [burger, setBurger] = useState(false);
   const [searchVisible, setSearchVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-  const handleBurger = () => {
-    setBurger(!burger);
-  };
-
-  const handleSearchToggle = () => {
-    setSearchVisible(!searchVisible);
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
+  const toggleProfile = () => setIsProfileOpen(prevState => !prevState);
+  const handleBurger = () => setBurger(!burger);
+  const handleSearchToggle = () => setSearchVisible(!searchVisible);
+  const handleSearchChange = (e) => setSearchQuery(e.target.value);
 
   const filteredItems = []; // Replace with your list of items to filter
-
-  // Example filter logic; replace with your actual items
-  // const filteredItems = items.filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   return (
     <div className='relative'>
@@ -47,7 +41,7 @@ const Navbar = () => {
             />
             {searchVisible && (
               <div 
-                className='absolute top-0 right-0 bg-white shadow-lg p-4 rounded-lg mt-2 w-64 sm:w-80 transition-transform duration-300 ease-in-out transform'
+                className='absolute top-0 right-0 bg-white shadow-lg p-4 rounded-lg mt-2 w-64 sm:w-80 transition-transform duration-300 ease-in-out'
                 style={{ transform: searchVisible ? 'translateX(0)' : 'translateX(100%)', opacity: searchVisible ? 1 : 0 }}
               >
                 <div className='relative'>
@@ -72,7 +66,7 @@ const Navbar = () => {
                       </div>
                     ))
                   ) : (
-                    <p className='text-gray-600'></p>
+                    <p className='text-gray-600'>No items found</p>
                   )}
                 </div>
               </div>
@@ -80,6 +74,20 @@ const Navbar = () => {
             <Link to="/cart">
               <CiShoppingBasket className='text-3xl cursor-pointer font-bold' />
             </Link>
+            <FaUser 
+              className="text-teal-900 cursor-pointer text-2xl  relative" 
+              onClick={toggleProfile} 
+            />
+            {isProfileOpen && (
+              <div 
+                className="absolute top-12 right-0 z-50"
+                style={{ width: '300px' }}
+              >
+                <Modal onClose={() => setIsProfileOpen(false)}>
+                  <Profile />
+                </Modal>
+              </div>
+            )}
           </li>
         </ul>
       </nav>
@@ -99,11 +107,11 @@ const Navbar = () => {
         </div>
         <hr className='border-slate-950'/>
         <div className='flex flex-col space-y-10'>
-          <Link to="/shop"><li className='list-none'><p className='text-3xl font-semibold text-teal-900 font-[ui-sans-serif]'>Shop All</p></li></Link>
-          <li className='list-none'><p className='text-3xl font-semibold text-teal-900 font-[ui-sans-serif]'>Contact</p></li>
-          <li className='list-none'><p className='text-3xl font-semibold text-teal-900 font-[ui-sans-serif]'>Home</p></li>
-          <li className='list-none'><p className='text-3xl font-semibold text-teal-900 font-[ui-sans-serif]'>Track order</p></li>
-          <li className='list-none'><p className='text-3xl font-semibold text-teal-900 font-[ui-sans-serif]'>About</p></li>
+          <Link to="/shop"><p className='text-3xl font-semibold text-teal-900 font-[ui-sans-serif]'>Shop All</p></Link>
+          <p className='text-3xl font-semibold text-teal-900 font-[ui-sans-serif]'>Contact</p>
+          <Link to="/"><p className='text-3xl font-semibold text-teal-900 font-[ui-sans-serif]'>Home</p></Link>
+          <p className='text-3xl font-semibold text-teal-900 font-[ui-sans-serif]'>Track order</p>
+          <p className='text-3xl font-semibold text-teal-900 font-[ui-sans-serif]'>About</p>
         </div>
       </div>  
     </div>

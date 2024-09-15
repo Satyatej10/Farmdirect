@@ -1,89 +1,58 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { store } from '../App';
-import { Navigate, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FaUserCircle } from 'react-icons/fa'; 
-import { FiLogOut } from 'react-icons/fi'; 
 
-const Myprofile = () => {
-  const [token, setToken] = useContext(store);
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
+const Profile = () => {
+  const [userData, setUserData] = useState(null);  // State for storing user data
+  const [loading, setLoading] = useState(true);    // State for loading indicator
+  const [error, setError] = useState(null);        // State for errors
 
   useEffect(() => {
-    if (token) {
-      axios.get('http://localhost:4000/myprofile', {
-        headers: {
-          'x-token': token
-        }
-      })
-      .then(res => {
-        setData(res.data);
-        setLoading(false);
-      })
-      .catch(err => {
-        setLoading(false);
-        if (err.response && err.response.status === 401) {
-          // Token expired or invalid
-          localStorage.removeItem('token');
-          setToken(null);
-          navigate('/login');
-        } else {
-          setError('An error occurred while fetching your profile.');
-        }
-      });
-    } else {
-      setLoading(false);
-    }
-  }, [token, navigate, setToken]);
+    const fetchProfile = async () => {
+      try {
+        // Get token from localStorage (assuming you store the token in localStorage on login)
+        const token = localStorage.getItem('token');
 
-  // Redirect if no token
-  if (!token) {
-    return <Navigate to="/login" />;
+        if (!token) {
+          throw new Error('No token found. Please log in.');
+        }
+
+        // Make an API request to the backend with the token in the Authorization header
+        const response = await axios.get('https://farmdirectserver-1z7a0piuf-bhargavks-projects.vercel.app/profile', {
+          headers: {
+            Authorization: `Bearer ${token}`, // Send the token with the request
+          },
+        });
+
+        
+        setUserData(response.data);
+      } catch (err) {
+        setError(err.message || 'Something went wrong');
+      } finally {
+        setLoading(false); 
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;  
   }
 
-  // Logout function
-  const logout = () => {
-    localStorage.removeItem('token'); // Remove token from localStorage
-    setToken(null); // Clear token from context
-    navigate('/login'); // Redirect to login page
-  };
+  if (error) {
+    return <div>Error: {error}</div>;  
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-100 flex flex-col items-center p-6">
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p className="text-red-500">{error}</p>
-      ) : data && (
-        <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md space-y-6">
-          <div className="flex flex-col items-center">
-            <FaUserCircle className="text-gray-500 text-6xl mb-4" /> {/* User Icon */}
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">{data.name}</h1>
-            <p className="text-gray-600 mb-4">{data.email}</p>
-          </div>
-          <div className="space-y-4">
-            <h2 className="text-lg font-semibold text-gray-700">Account Details</h2>
-            <ul className="list-disc list-inside text-gray-600">
-              <li>Member since: {data.createdAt ? new Date(data.createdAt).toLocaleDateString() : 'N/A'}</li>
-              <li>Last login: {data.lastLogin ? new Date(data.lastLogin).toLocaleDateString() : 'N/A'}</li>
-              {/* Add more user details if available */}
-            </ul>
-          </div>
-          <div className="flex justify-end">
-            <button 
-              onClick={logout}
-              className="flex items-center bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-600 transition duration-300 ease-in-out"
-            >
-              <FiLogOut className="mr-2" /> Logout
-            </button>
-          </div>
+    <div className='bg-[#e0d7af]'>
+      {userData && (
+        <div>
+          <p className='text-teal-800'>Name: {userData.name}</p>
+          <p className='text-teal-800'>Email: {userData.email}</p>
         </div>
       )}
     </div>
   );
 };
 
-export default Myprofile;
+export default Profile;

@@ -23,7 +23,7 @@ const First = () => {
     }, 2000); 
 
     const redirectTimer = setTimeout(() => {
-      navigate('/second'); 
+      navigate('/login'); 
     }, 3000); 
 
     return () => {
