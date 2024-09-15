@@ -14,7 +14,7 @@ const Shop = () => {
 
   const getImages = async () => {
     try {
-      const result = await axios.get("https://farmdirectserver-1z7a0piuf-bhargavks-projects.vercel.app/getimage");
+      const result = await axios.get("https://farmdirectserver.vercel.app/getimage");
       setImages(result.data.data || []);
     } catch (error) {
       console.error("Error fetching images:", error);

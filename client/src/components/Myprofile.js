@@ -17,7 +17,7 @@ const Profile = () => {
         }
 
         // Make an API request to the backend with the token in the Authorization header
-        const response = await axios.get('https://farmdirectserver-1z7a0piuf-bhargavks-projects.vercel.app/profile', {
+        const response = await axios.get('https://farmdirectserver.vercel.app/profile', {
           headers: {
             Authorization: `Bearer ${token}`, // Send the token with the request
           },

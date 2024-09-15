@@ -43,7 +43,7 @@ const Farmer = () => {
 
 
     try {
-      await axios.post("https://farmdirectserver-1z7a0piuf-bhargavks-projects.vercel.app/uploadimage", formData, {
+      await axios.post("https://farmdirectserver.vercel.app/uploadimage", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       
@@ -183,7 +183,7 @@ const Farmer = () => {
                 <input
                   id="userName"
                   type="text"
-                  placeholder="Enter quantity"
+                  placeholder="Enter your Name"
                   value={userName}
                   onChange={handleuserNameChange}
                   className="block w-full text-gray-700 border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-green-500 focus:border-green-500 sm:text-sm"

@@ -8,7 +8,7 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const handleSignup = async () => {
-    const response = await fetch('https://farmdirectserver-1z7a0piuf-bhargavks-projects.vercel.app/signup', {
+    const response = await fetch('https://farmdirectserver.vercel.app/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, password }),
