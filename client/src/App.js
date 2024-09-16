@@ -5,7 +5,7 @@ import Cart from './components/Cart';
 import Navbar from './components/Navbar';
 import Payment from './components/Payment';
 import Products from './components/Products';
-import First from './components/First';
+// import First from './components/First';
 import Second from './components/Second';
 import Farmer from './components/Farmer'; 
 import Shop from './components/Shop';
@@ -23,7 +23,7 @@ const App = () => {
         <Route path="/buy" element={<Buy />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/payment" element={<Payment />} />
-        <Route path="/" element={<First />} />
+        <Route path="/" element={<Login />} />
         <Route path="/farmer" element={<Farmer />} /> 
         <Route path="/shop" element={<Shop />} /> 
         <Route path="/signup" element={<Signup />} />
