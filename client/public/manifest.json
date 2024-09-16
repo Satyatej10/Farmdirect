@@ -1,6 +1,6 @@
 {
   "short_name": "Farmdirect",
-  "name": "Create React App Sample",
+  "name": "Farmdirect - Fresh Produce at Your Fingertips",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,7 +18,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

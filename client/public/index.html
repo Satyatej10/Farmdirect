@@ -3,12 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your App</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap">
-  <link rel="manifest" href="/manifest.json">
+  <title>Farmdirect</title>
 
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap">
+
+  <!-- Favicon and Icons -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="logo192.png">
+  <link rel="manifest" href="/manifest.json">
+  
+  <!-- Meta Tags for PWA -->
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Farmdirect - Fresh Produce at Your Fingertips">
 </head>
 <body>
   <div id="root"></div>
+
+  <!-- Service Worker Registration (Optional for manual SW inclusion) -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+          console.log('Service Worker registered with scope:', registration.scope);
+        }, function(error) {
+          console.log('Service Worker registration failed:', error);
+        });
+      });
+    }
+  </script>
 </body>
 </html>
