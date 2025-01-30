@@ -107,11 +107,11 @@ const Navbar = () => {
         </div>
         <hr className='border-slate-950'/>
         <div className='flex flex-col space-y-10'>
+          <Link to="/customer"><p className='text-3xl font-semibold text-teal-900 font-[ui-sans-serif]'>Home</p></Link>
           <Link to="/shop"><p className='text-3xl font-semibold text-teal-900 font-[ui-sans-serif]'>Shop All</p></Link>
-          <p className='text-3xl font-semibold text-teal-900 font-[ui-sans-serif]'>Contact</p>
-          <Link to="/"><p className='text-3xl font-semibold text-teal-900 font-[ui-sans-serif]'>Home</p></Link>
           <p className='text-3xl font-semibold text-teal-900 font-[ui-sans-serif]'>Track order</p>
-          <p className='text-3xl font-semibold text-teal-900 font-[ui-sans-serif]'>About</p>
+          <Link to="/about"><p className='text-3xl font-semibold text-teal-900 font-[ui-sans-serif]'>About</p></Link>
+          <Link to="/contact"><p className='text-3xl font-semibold text-teal-900 font-[ui-sans-serif]'>Contact</p></Link>
         </div>
       </div>  
     </div>
