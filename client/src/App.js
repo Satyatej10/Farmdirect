@@ -12,12 +12,17 @@ import Shop from './components/Shop';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Myprofile from './components/Myprofile';
+import About from './components/About';
+import Contact from './components/Contact';
+
 
 const App = () => {
   return (
     <BrowserRouter>
       <ConditionalNavbar />
       <Routes>
+        <Route path="/contact" element={<Contact />}/>
+        <Route path="/about" element={<About />} />
         <Route path="/customer" element={<Products />} />
         <Route path="/second" element={<Second />} />
         <Route path="/buy" element={<Buy />} />
