@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Checkout from './Checkout'; // import the Checkout component
 
 const Cart = () => {
   const location = useLocation();
@@ -10,6 +11,8 @@ const Cart = () => {
     const savedCartItems = localStorage.getItem('cartItems');
     return savedCartItems ? JSON.parse(savedCartItems) : [];
   });
+
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false); // Modal state
 
   useEffect(() => {
     if (imagePath && productname && productprice) {
@@ -22,10 +25,10 @@ const Cart = () => {
       };
 
       setCartItems((prevItems) => {
-        const isItemAlreadyInCart = prevItems.some(item => item.name === newItem.name);
+        const isItemAlreadyInCart = prevItems.some((item) => item.name === newItem.name);
         if (!isItemAlreadyInCart) {
           const updatedItems = [...prevItems, newItem];
-          localStorage.setItem('cartItems', JSON.stringify(updatedItems)); 
+          localStorage.setItem('cartItems', JSON.stringify(updatedItems));
           return updatedItems;
         }
         return prevItems;
@@ -42,7 +45,6 @@ const Cart = () => {
     setCartItems(updatedCartItems);
   };
 
- 
   const handleIncreaseQuantity = (itemId) => {
     const updatedCartItems = cartItems.map((item) =>
       item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item
@@ -50,7 +52,6 @@ const Cart = () => {
     setCartItems(updatedCartItems);
   };
 
-  
   const handleDecreaseQuantity = (itemId) => {
     const updatedCartItems = cartItems.map((item) =>
       item.id === itemId && item.quantity > 1
@@ -60,9 +61,13 @@ const Cart = () => {
     setCartItems(updatedCartItems);
   };
 
-                    
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+  };
+
+  const handleCheckout = () => {
+    const totalCost = calculateTotal(); 
+    navigate('/checkout', { state: { cartItems, totalCost } });
   };
 
   return (
@@ -113,8 +118,24 @@ const Cart = () => {
             <span className="text-2xl font-bold">Rs. {calculateTotal()}</span>
           </div>
           <hr className="my-4" />
-          <button className="w-full bg-[#1c4c44] hover:bg-[#145d51] text-white font-semibold py-2 rounded">CHECKOUT</button>
+          <button
+            className="w-full bg-[#1c4c44] hover:bg-[#145d51] text-white font-semibold py-2 rounded"
+            onClick={handleCheckout}
+          >
+            CHECKOUT
+          </button>
           <p className="text-sm text-center text-gray-500 mt-2">Shipping & taxes calculated at checkout</p>
+        </div>
+      )}
+
+      {isCheckoutOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+            <Checkout
+              cartItems={cartItems}
+              totalCost={calculateTotal()}
+            />
+          </div>
         </div>
       )}
     </div>

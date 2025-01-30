@@ -14,6 +14,7 @@ import Login from './components/Login';
 import Myprofile from './components/Myprofile';
 import About from './components/About';
 import Contact from './components/Contact';
+import Checkout from './components/Checkout';
 
 
 const App = () => {
@@ -21,7 +22,8 @@ const App = () => {
     <BrowserRouter>
       <ConditionalNavbar />
       <Routes>
-        <Route path="/contact" element={<Contact />}/>
+      <Route path="/Checkout" element={<Checkout />}/>
+      <Route path="/Contact" element={<Contact />}/>
         <Route path="/about" element={<About />} />
         <Route path="/customer" element={<Products />} />
         <Route path="/second" element={<Second />} />
