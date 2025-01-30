@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
 import { CiSearch, CiShoppingBasket } from "react-icons/ci";
-import { FaUser } from "react-icons/fa";
+import { PiUserCircleThin } from "react-icons/pi";
 import { Link } from 'react-router-dom';
 import Modal from './Modal';  // Import the Modal component
 import Profile from './Myprofile';  // Import the Profile component
@@ -74,10 +74,9 @@ const Navbar = () => {
             <Link to="/cart">
               <CiShoppingBasket className='text-3xl cursor-pointer font-bold' />
             </Link>
-            <FaUser 
-              className="text-teal-900 cursor-pointer text-2xl  relative" 
-              onClick={toggleProfile} 
-            />
+            <PiUserCircleThin
+            className="text-black  cursor-pointer text-4xl font-medium relative " 
+            onClick={toggleProfile} />
             {isProfileOpen && (
               <div 
                 className="absolute top-12 right-0 z-50"

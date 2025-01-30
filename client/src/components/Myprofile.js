@@ -44,7 +44,7 @@ const Profile = () => {
   }
 
   return (
-    <div className='bg-[#e0d7af]'>
+    <div className='bg-transparent'>
       {userData && (
         <div>
           <p className='text-teal-800'>Name: {userData.name}</p>

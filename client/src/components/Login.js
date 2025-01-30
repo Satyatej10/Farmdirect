@@ -5,20 +5,31 @@ import { Link } from 'react-router-dom';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    const response = await fetch('https://farmdirectserver.vercel.app/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
-    const data = await response.json();
-    if (data.token) {
-      localStorage.setItem('token', data.token);
-      navigate('/second');
-    } else {
-      alert('Login failed');
+    setIsLoading(true); // Start loading
+    try {
+      const response = await fetch('https://farmdirectserver.vercel.app/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        navigate('/second'); // Navigate immediately after login
+      } else {
+        alert('Login failed');
+      }
+    } catch (error) {
+      console.error('Login Error:', error);
+      alert('Something went wrong. Please try again.');
+    } finally {
+      setIsLoading(false); // Stop loading
     }
   };
 
@@ -49,11 +60,21 @@ const Login = () => {
             />
             <br />
             <button
-              type="button" // Ensure button is of type button to prevent form submission
+              type="button"
               onClick={handleLogin}
-              className="w-full bg-teal-800 text-white p-3 rounded-lg hover:bg-teal-700 transition duration-300"
+              disabled={isLoading} // Disable button when loading
+              className={`w-full text-white p-3 rounded-lg transition duration-300 ${
+                isLoading ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-800 hover:bg-teal-700'
+              }`}
             >
-              Login
+              {isLoading ? (
+                <div className="flex items-center justify-center">
+                  <div className="w-5 h-5 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <span className="ml-2">Logging in...</span>
+                </div>
+              ) : (
+                'Login'
+              )}
             </button>
             <div className='flex justify-between mt-4'>
               <p className='text-teal-800'>I don't have an account</p>
