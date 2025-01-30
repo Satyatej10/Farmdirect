@@ -26,8 +26,11 @@ const Buy = () => {
     };
 
     const handleBuyNowClick = () => {
+        const totalCost = gram;
         setPaymentPopupVisible(true);
+        navigate('/checkout', { state: {totalCost } });
     };
+    
 
     const handleClosePaymentPopup = () => {
         setPaymentPopupVisible(false);
