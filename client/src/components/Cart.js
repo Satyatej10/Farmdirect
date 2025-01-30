@@ -12,7 +12,7 @@ const Cart = () => {
     return savedCartItems ? JSON.parse(savedCartItems) : [];
   });
 
-  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false); // Modal state
+  const [isCheckoutOpen] = useState(false); // Modal state
 
   useEffect(() => {
     if (imagePath && productname && productprice) {
